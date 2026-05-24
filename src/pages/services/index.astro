@@ -5,6 +5,7 @@ import SectionHeader from '@components/ui/SectionHeader.astro';
 import Reveal from '@components/ui/Reveal.astro';
 import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
+import { site } from '@data/site';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 
@@ -15,8 +16,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
-    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://neupaneassociates.com.np/services/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${site.url}/services/` },
   ],
 };
 ---

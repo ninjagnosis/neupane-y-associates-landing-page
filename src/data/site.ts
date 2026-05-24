@@ -10,7 +10,7 @@ export const site = {
   promise: 'Accounting Excellence. Business Confidence.',
   description:
     'Neupane Y. & Associates is a Bhaktapur-based chartered accountancy firm offering audit, tax and advisory services for ambitious Nepali businesses.',
-  url: 'https://neupaneassociates.com.np',
+  url: 'https://neupaney.com',
   founded: 2019,
   email: 'yogeshneupane2638@gmail.com',
   phone: '+977 970-5459501',

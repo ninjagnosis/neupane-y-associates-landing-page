@@ -5,7 +5,7 @@ import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://neupaneassociates.com.np',
+  site: 'https://neupaney.com',
   integrations: [
     mdx(),
     sitemap(),

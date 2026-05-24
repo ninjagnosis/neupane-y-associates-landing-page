@@ -13,8 +13,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
-    { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://neupaneassociates.com.np/contact/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: `${site.url}/contact/` },
   ],
 };
 ---
@@ -47,7 +47,7 @@ const jsonLd = {
         >
           <input type="hidden" name="access_key" value={site.contactFormKey} />
           <input type="hidden" name="from_name" value="Neupane Y. & Associates Website" />
-          <input type="hidden" name="redirect" value="https://neupaneassociates.com.np/contact/thank-you/" />
+          <input type="hidden" name="redirect" value={`${site.url}/contact/thank-you/`} />
 
           <div>
             <label for="name" class="block text-sm font-medium text-[var(--color-ink)] mb-2">

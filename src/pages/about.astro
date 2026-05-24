@@ -5,6 +5,7 @@ import Eyebrow from '@components/ui/Eyebrow.astro';
 import SectionHeader from '@components/ui/SectionHeader.astro';
 import Reveal from '@components/ui/Reveal.astro';
 import { Icon } from 'astro-icon/components';
+import { site } from '@data/site';
 
 const title = 'About Neupane Y. & Associates | Chartered Accountants';
 const description = 'Learn about our firm, expertise, and commitment to accounting excellence. Founded in 2019, we serve Nepali businesses with audit, tax, and advisory services.';
@@ -13,8 +14,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
-    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://neupaneassociates.com.np/about/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site.url },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `${site.url}/about/` },
   ],
 };
 ---

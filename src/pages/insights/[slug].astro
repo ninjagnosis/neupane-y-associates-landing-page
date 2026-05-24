@@ -4,6 +4,7 @@ import Container from '@components/ui/Container.astro';
 import Reveal from '@components/ui/Reveal.astro';
 import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
+import { site } from '@data/site';
 
 export async function getStaticPaths() {
   const insights = await getCollection('insights');
@@ -32,7 +33,7 @@ const jsonLd = {
   publisher: {
     '@type': 'Organization',
     name: 'Neupane Y. & Associates',
-    url: 'https://neupaneassociates.com.np',
+    url: site.url,
   },
 };
 ---
