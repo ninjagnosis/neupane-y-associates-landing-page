@@ -1,5 +1,6 @@
 {
   "name": "neupane-y-associates-landing-page",
+  "pages_build_output_dir": "dist",
   "build": {
     "command": "pnpm build",
     "cwd": "."

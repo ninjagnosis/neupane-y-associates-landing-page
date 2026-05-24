@@ -1,12 +1,10 @@
 name = "neupane-y-associates-landing-page"
+pages_build_output_dir = "dist"
 
 [build]
 command = "pnpm build"
 cwd = "."
 watch_paths = ["src/**/*.{astro,ts,tsx,jsx,js,md}"]
-
-[build.upload]
-format = "service-worker"
 
 [env.production]
 name = "neupane-y-associates-landing-page"
