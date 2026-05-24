@@ -10,6 +10,9 @@ const allInsights = (await getCollection('insights'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
+const title = 'Insights & Resources | Accounting Tips & Tax News';
+const description = 'Read our latest insights on Nepal tax compliance, audit readiness, VAT registration, and accounting best practices for Nepali businesses.';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -20,7 +23,7 @@ const jsonLd = {
 };
 ---
 
-<Base title="Insights & Updates" jsonLd={jsonLd}>
+<Base {title} {description} jsonLd={jsonLd}>
   <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
     <Container size="lg">
       <Reveal class="max-w-3xl">

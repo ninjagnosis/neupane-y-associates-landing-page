@@ -7,6 +7,9 @@ import { getCollection } from 'astro:content';
 
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 
+const title = 'Our Team | Chartered Accountants & Experts';
+const description = 'Meet the expert team at Neupane Y. & Associates. Experienced chartered accountants dedicated to your business success.';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -17,7 +20,7 @@ const jsonLd = {
 };
 ---
 
-<Base title="Team" jsonLd={jsonLd}>
+<Base {title} {description} jsonLd={jsonLd}>
   <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
     <Container size="lg">
       <Reveal class="max-w-3xl">

@@ -6,6 +6,9 @@ import Reveal from '@components/ui/Reveal.astro';
 import { Icon } from 'astro-icon/components';
 import { site } from '@data/site';
 
+const title = 'Contact Neupane Y. & Associates | Get in Touch';
+const description = 'Contact us for accounting, audit, and tax services. Based in Bhaktapur. Phone: +977 970-5459501. Email: yogeshneupane2638@gmail.com.';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -16,7 +19,7 @@ const jsonLd = {
 };
 ---
 
-<Base title="Contact us" jsonLd={jsonLd}>
+<Base {title} {description} jsonLd={jsonLd}>
   <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
     <Container size="lg">
       <Reveal class="max-w-3xl">

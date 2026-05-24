@@ -8,6 +8,9 @@ import { getCollection } from 'astro:content';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 
+const title = 'Accounting Services in Nepal | Audit, Tax & Advisory';
+const description = 'Professional accounting services including statutory audit, tax advisory, internal audit, business advisory, company registration, bookkeeping, and payroll. Trusted Nepali firm.';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -18,7 +21,7 @@ const jsonLd = {
 };
 ---
 
-<Base title="Services" jsonLd={jsonLd}>
+<Base {title} {description} jsonLd={jsonLd}>
   <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
     <Container size="lg">
       <Reveal class="max-w-3xl">

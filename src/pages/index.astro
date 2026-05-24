@@ -14,6 +14,9 @@ const insights = (await getCollection('insights'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
+const title = 'Chartered Accountants in Bhaktapur, Nepal | Audit & Tax Services';
+const description = 'Expert accounting, audit, and tax advisory services for ambitious Nepali businesses. Trusted by 40+ clients with 100% filing accuracy. Neupane Y. & Associates.';
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -30,7 +33,7 @@ const jsonLd = [
 ];
 ---
 
-<Base title="" jsonLd={jsonLd}>
+<Base {title} {description} jsonLd={jsonLd}>
   <!-- Hero -->
   <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 relative overflow-hidden">
     <div aria-hidden="true" class="absolute -inset-x-1/2 -top-1/2 aspect-square rounded-full bg-gradient-to-br from-[var(--color-gold)]/8 to-transparent blur-3xl"></div>
