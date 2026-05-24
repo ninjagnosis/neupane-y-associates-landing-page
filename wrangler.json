@@ -1,6 +1,10 @@
 {
   "name": "neupane-y-associates-landing-page",
   "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-05-24",
+  "assets": {
+    "directory": "./dist"
+  },
   "build": {
     "command": "pnpm build",
     "cwd": "."
