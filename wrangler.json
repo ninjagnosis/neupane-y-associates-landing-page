@@ -1,20 +1,7 @@
 {
   "name": "neupane-y-associates-landing-page",
-  "type": "javascript",
-  "main": "src/index.ts",
   "build": {
     "command": "pnpm build",
     "cwd": "."
-  },
-  "env": {
-    "production": {
-      "name": "neupane-y-associates-landing-page-prod",
-      "routes": [
-        {
-          "pattern": "neupane-y-associates.example.com",
-          "zone_name": "example.com"
-        }
-      ]
-    }
   }
 }

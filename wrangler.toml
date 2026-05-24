@@ -1,15 +1,16 @@
 name = "neupane-y-associates-landing-page"
-type = "javascript"
-main = "src/index.ts"
 
 [build]
 command = "pnpm build"
 cwd = "."
 watch_paths = ["src/**/*.{astro,ts,tsx,jsx,js,md}"]
 
+[build.upload]
+format = "service-worker"
+
 [env.production]
 name = "neupane-y-associates-landing-page"
 routes = [
-  { pattern = "neupane-y-associates.com", zone_name = "neupane-y-associates.com" },
-  { pattern = "*.neupane-y-associates.com", zone_name = "neupane-y-associates.com" }
+  { pattern = "neupaney.com", zone_name = "neupaney.com" },
+  { pattern = "*.neupaney.com", zone_name = "neupaney.com" }
 ]
