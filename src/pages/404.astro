@@ -1,9 +1,8 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { site, nav } from '../data/site';
+import Base from '../layouts/Base.astro';
 ---
 
-<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist.">
+<Base title="Page Not Found" description="The page you're looking for doesn't exist.">
   <div class="min-h-screen flex items-center justify-center px-4">
     <div class="max-w-md text-center">
       <h1 class="text-6xl font-bold mb-4">404</h1>
@@ -46,4 +45,4 @@ import { site, nav } from '../data/site';
       </div>
     </div>
   </div>
-</BaseLayout>
+</Base>
