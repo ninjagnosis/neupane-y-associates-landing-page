@@ -1,5 +1,2 @@
-# Redirect old domain to new domain
-https://neupaneassociates.com.np/* https://neupaney.com/:splat 301
-
-# Handle 404s
-/* /404.html 404
+# Rewrite 404s to the 404 page
+/* /404.html 200
