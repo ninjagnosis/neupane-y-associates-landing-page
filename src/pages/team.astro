@@ -1,0 +1,97 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { getCollection } from 'astro:content';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
+    { '@type': 'ListItem', position: 2, name: 'Team', item: 'https://neupaneassociates.com.np/team/' },
+  ],
+};
+---
+
+<Base title="Team" jsonLd={jsonLd}>
+  <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
+    <Container size="lg">
+      <Reveal class="max-w-3xl">
+        <h1 class="display-1">
+          Meet the team
+          <br />
+          <span class="accent-italic">behind the work</span>
+        </h1>
+      </Reveal>
+    </Container>
+  </section>
+
+  <section class="section">
+    <Container size="lg">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
+        {
+          team.map((person, i) => (
+            <Reveal
+              delay={(i % 5) as 0 | 1 | 2 | 3 | 4 | 5}
+              as="article"
+              class="flex flex-col"
+            >
+              <div class="mb-6 overflow-hidden rounded-lg aspect-[4/5] bg-[var(--color-stone-100)]">
+                <img
+                  src={person.data.image}
+                  alt={person.data.name}
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <h3 class="font-serif text-2xl leading-tight mb-1" style="font-variation-settings: 'opsz' 48;">
+                  {person.data.name}
+                </h3>
+                <p class="text-[var(--color-gold-deep)] text-sm font-medium uppercase tracking-[0.08em] mb-4">
+                  {person.data.role}
+                </p>
+                <p class="text-[var(--color-stone-600)] text-sm leading-relaxed mb-4">
+                  {person.data.summary}
+                </p>
+                {
+                  person.data.qualifications.length > 0 && (
+                    <div class="mb-4">
+                      <p class="text-xs uppercase tracking-[0.1em] text-[var(--color-stone-500)] font-medium mb-2">
+                        Qualifications
+                      </p>
+                      <ul class="text-sm text-[var(--color-stone-600)] space-y-1">
+                        {person.data.qualifications.map((q) => (
+                          <li>• {q}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                }
+                {
+                  person.data.specializations.length > 0 && (
+                    <div>
+                      <p class="text-xs uppercase tracking-[0.1em] text-[var(--color-stone-500)] font-medium mb-2">
+                        Specializations
+                      </p>
+                      <div class="flex flex-wrap gap-2">
+                        {person.data.specializations.map((spec) => (
+                          <span class="text-xs bg-[var(--color-gold)]/10 text-[var(--color-gold-deep)] px-2.5 py-1 rounded-full">
+                            {spec}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
+              </div>
+            </Reveal>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+</Base>

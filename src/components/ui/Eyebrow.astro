@@ -1,0 +1,13 @@
+---
+interface Props {
+  variant?: 'default' | 'on-dark';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+const variantClass = variant === 'on-dark' ? 'eyebrow--on-dark' : '';
+---
+
+<span class={`eyebrow ${variantClass} ${className}`}>
+  <slot />
+</span>

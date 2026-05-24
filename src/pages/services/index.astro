@@ -1,0 +1,92 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://neupaneassociates.com.np/services/' },
+  ],
+};
+---
+
+<Base title="Services" jsonLd={jsonLd}>
+  <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
+    <Container size="lg">
+      <Reveal class="max-w-3xl">
+        <h1 class="display-1">
+          From compliance to
+          <br />
+          <span class="accent-italic">competitive advantage</span>
+        </h1>
+      </Reveal>
+      <Reveal delay={1} class="mt-8 max-w-2xl">
+        <p class="lead text-[var(--color-stone-500)]">
+          Seven service lines. One clear goal: your financial confidence and business success.
+        </p>
+      </Reveal>
+    </Container>
+  </section>
+
+  <section class="section">
+    <Container size="lg">
+      <SectionHeader eyebrow="Our expertise" align="center" class="mb-16 lg:mb-24">
+        <h2 class="display-2">Services we deliver</h2>
+      </SectionHeader>
+
+      <div class="space-y-8">
+        {
+          services.map((service, i) => (
+            <Reveal
+              delay={(i % 5) as 0 | 1 | 2 | 3 | 4 | 5}
+              as="article"
+              class="group border-b border-[var(--color-stone-200)] pb-8 last:border-0 last:pb-0"
+            >
+              <a href={`/services/${service.slug}/`} class="block mb-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start gap-6 flex-1">
+                    <Icon name={`lucide:${service.data.icon}`} class="w-8 h-8 text-[var(--color-gold)] flex-shrink-0 mt-1" />
+                    <div class="flex-1">
+                      <h3 class="font-serif text-3xl leading-tight mb-3 group-hover:text-[var(--color-gold)] transition-colors" style="font-variation-settings: 'opsz' 48;">
+                        {service.data.title}
+                      </h3>
+                      <p class="text-[var(--color-stone-500)] leading-relaxed max-w-2xl">
+                        {service.data.summary}
+                      </p>
+                    </div>
+                  </div>
+                  <Icon name="lucide:arrow-up-right" class="w-5 h-5 text-[var(--color-stone-400)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform flex-shrink-0 mt-2" />
+                </div>
+              </a>
+            </Reveal>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-24 lg:py-32 bg-[var(--color-ink)] text-[var(--color-bone)]">
+    <Container size="md">
+      <Reveal class="text-center">
+        <h2 class="display-2 mb-6 text-[var(--color-bone)]">
+          Not sure where to start?
+        </h2>
+        <p class="lead lead--on-dark mx-auto mb-10 max-w-2xl">
+          We'll assess your situation and recommend which services will create the most value for your business.
+        </p>
+        <a href="/contact/" class="btn btn--on-dark">
+          Get a consultation
+          <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+        </a>
+      </Reveal>
+    </Container>
+  </section>
+</Base>

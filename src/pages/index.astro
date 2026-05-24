@@ -1,0 +1,266 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import { site, stats } from '@data/site';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const insights = (await getCollection('insights'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: site.url,
+      },
+    ],
+  },
+];
+---
+
+<Base title="" jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 relative overflow-hidden">
+    <div aria-hidden="true" class="absolute -inset-x-1/2 -top-1/2 aspect-square rounded-full bg-gradient-to-br from-[var(--color-gold)]/8 to-transparent blur-3xl"></div>
+
+    <Container size="xl" class="relative">
+      <Reveal class="max-w-4xl">
+        <h1 class="display-1">
+          Financial clarity.
+          <br />
+          <span class="accent-italic">Strategic confidence.</span>
+        </h1>
+      </Reveal>
+      <Reveal delay={1} class="mt-8 max-w-2xl">
+        <p class="lead text-[var(--color-stone-500)]">
+          Neupane Y. & Associates is a Bhaktapur-based chartered accountancy firm serving Nepali
+          businesses with expert audit, tax and advisory services. We turn compliance into
+          competitive advantage.
+        </p>
+      </Reveal>
+      <Reveal delay={2} class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="/contact/" class="btn">
+          Start a conversation
+          <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+        </a>
+        <a href="/services/" class="btn btn--ghost">
+          Explore services
+          <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
+        </a>
+      </Reveal>
+    </Container>
+
+    <!-- Scroll prompt (animated) -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[var(--color-stone-400)] text-xs uppercase tracking-[0.2em] font-medium opacity-60 animate-bounce">
+      <span>Scroll to explore</span>
+      <Icon name="lucide:chevron-down" class="w-4 h-4" />
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <section class="py-20 lg:py-28 bg-gradient-to-b from-[var(--color-bone)] to-[var(--color-stone-100)] border-y border-[var(--color-stone-200)]">
+    <Container size="lg">
+      <div class="grid md:grid-cols-4 gap-12 lg:gap-16">
+        {
+          stats.map((stat, i) => (
+            <Reveal delay={Math.min(i, 5) as 0 | 1 | 2 | 3 | 4 | 5} class="flex flex-col gap-2">
+              <p class="text-4xl lg:text-5xl font-serif tracking-tight leading-tight" style="font-variation-settings: 'opsz' 96, 'SOFT' 40;">
+                {stat.value}
+              </p>
+              <p class="text-sm text-[var(--color-stone-500)]">{stat.label}</p>
+            </Reveal>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- Services preview -->
+  <section class="section">
+    <Container size="lg">
+      <SectionHeader eyebrow="Core services" align="center" class="mb-16 lg:mb-24">
+        <h2 class="display-2">
+          Expert across the
+          <br />
+          <span class="accent-italic">full spectrum</span>
+        </h2>
+      </SectionHeader>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        {
+          services.map((service, i) => (
+            <Reveal
+              delay={(i % 5) as 0 | 1 | 2 | 3 | 4 | 5}
+              as="a"
+              href={`/services/${service.slug}/`}
+              class="group relative p-8 bg-gradient-to-br from-[var(--color-bone-soft)]/80 to-[var(--color-stone-100)] border border-[var(--color-stone-200)] rounded-lg hover:shadow-xl hover:border-[var(--color-gold)] transition-all duration-300"
+            >
+              <div class="flex items-start justify-between mb-6">
+                <Icon name={`lucide:${service.data.icon}`} class="w-8 h-8 text-[var(--color-gold)]" />
+                <Icon name="lucide:arrow-up-right" class="w-4 h-4 text-[var(--color-stone-400)] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </div>
+              <h3 class="font-serif text-2xl mb-3 leading-tight group-hover:text-[var(--color-gold)] transition-colors" style="font-variation-settings: 'opsz' 48;">
+                {service.data.title}
+              </h3>
+              <p class="text-sm text-[var(--color-stone-500)] leading-relaxed">{service.data.summary}</p>
+            </Reveal>
+          ))
+        }
+      </div>
+
+      <Reveal delay={3} class="mt-16 text-center">
+        <a href="/services/" class="arrow-link">
+          View all services
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </Reveal>
+    </Container>
+  </section>
+
+  <!-- Firm philosophy -->
+  <section class="section bg-[var(--color-ink-deep)] text-[var(--color-bone)] relative overflow-hidden">
+    <div aria-hidden="true" class="absolute inset-0 opacity-[0.04] pointer-events-none" style="background-image: repeating-linear-gradient(45deg, transparent 0, transparent 32px, var(--color-bone) 32px, var(--color-bone) 64px);"></div>
+
+    <Container size="lg" class="relative">
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <Reveal class="flex flex-col gap-8">
+          <SectionHeader eyebrow="Who we are" variant="on-dark">
+            <h2 class="display-2 text-[var(--color-bone)]">
+              Accounting as
+              <br />
+              <span class="accent-italic accent-italic--on-dark">strategic partnership</span>
+            </h2>
+          </SectionHeader>
+          <div class="space-y-6 text-[var(--color-bone)]/80">
+            <p>
+              Most accounting firms treat compliance as a checkbox. We treat it as a
+              conversation starter. Your financials tell a story — we help you understand it,
+              so you can make better decisions faster.
+            </p>
+            <p>
+              From startups finding their footing to established firms scaling operations, we
+              listen first, advise second, and deliver with precision every time.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-4">
+            <a href="/about/" class="btn btn--on-dark">
+              Learn our story
+              <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+            </a>
+            <a href="/team/" class="btn btn--ghost-on-dark">
+              Meet the team
+              <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={2} class="hidden lg:block aspect-square rounded-lg bg-gradient-to-br from-[var(--color-gold)]/15 to-[var(--color-ink)]/50 border border-[var(--color-gold)]/20 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800&h=800"
+            alt="Team collaboration"
+            class="w-full h-full object-cover"
+          />
+        </Reveal>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Recent insights -->
+  <section class="section">
+    <Container size="lg">
+      <SectionHeader eyebrow="Insights & updates" align="center" class="mb-16 lg:mb-24">
+        <h2 class="display-2">
+          Stay informed.
+          <br />
+          <span class="accent-italic">Stay ahead.</span>
+        </h2>
+      </SectionHeader>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {
+          insights.map((post, i) => (
+            <Reveal
+              delay={(i % 5) as 0 | 1 | 2 | 3 | 4 | 5}
+              as="article"
+              class="flex flex-col h-full group"
+            >
+              <a href={`/insights/${post.slug}/`} class="block mb-6 overflow-hidden rounded-lg">
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.heroAlt}
+                  class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="flex flex-col gap-3 flex-1">
+                <div class="flex items-center gap-2 text-xs text-[var(--color-stone-500)] uppercase tracking-[0.1em]">
+                  <span>{post.data.category}</span>
+                  <span>•</span>
+                  <time datetime={post.data.date.toISOString()}>
+                    {post.data.date.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </time>
+                </div>
+                <a href={`/insights/${post.slug}/`} class="font-serif text-2xl leading-tight group-hover:text-[var(--color-gold)] transition-colors" style="font-variation-settings: 'opsz' 48;">
+                  {post.data.title}
+                </a>
+                <p class="text-[var(--color-stone-500)] text-sm leading-relaxed flex-1">
+                  {post.data.summary}
+                </p>
+                <a
+                  href={`/insights/${post.slug}/`}
+                  class="mt-4 inline-flex gap-2 text-xs font-medium uppercase tracking-[0.08em] text-[var(--color-ink)] group-hover:text-[var(--color-gold)] transition-colors"
+                >
+                  Read article
+                  <Icon name="lucide:arrow-right" class="w-3 h-3" />
+                </a>
+              </div>
+            </Reveal>
+          ))
+        }
+      </div>
+
+      <Reveal delay={3} class="mt-16 text-center">
+        <a href="/insights/" class="arrow-link">
+          View all insights
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </Reveal>
+    </Container>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-24 lg:py-32 bg-[var(--color-ink)] text-[var(--color-bone)] relative">
+    <Container size="md" class="relative">
+      <Reveal class="text-center">
+        <h2 class="display-2 mb-6 text-[var(--color-bone)]">
+          Numbers have stories.
+          <br />
+          <span class="accent-italic accent-italic--on-dark">Let's tell yours.</span>
+        </h2>
+        <p class="lead lead--on-dark mx-auto mb-10 max-w-2xl">
+          Ready to turn your financial data into strategic insight? Start a conversation with our
+          team today.
+        </p>
+        <a href="/contact/" class="btn btn--on-dark">
+          Book a consultation
+          <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+        </a>
+      </Reveal>
+    </Container>
+  </section>
+</Base>

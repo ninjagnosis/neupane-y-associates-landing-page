@@ -1,0 +1,94 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights
+    .filter((p) => !p.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.summary,
+  image: post.data.heroImage,
+  datePublished: post.data.date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Neupane Y. & Associates',
+    url: 'https://neupaneassociates.com.np',
+  },
+};
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.summary}
+  image={post.data.heroImage}
+  jsonLd={jsonLd}
+>
+  <article class="pt-16 pb-20 lg:pt-24 lg:pb-24">
+    <Container size="md">
+      <Reveal class="flex flex-col gap-6 mb-12">
+        <div class="flex items-center gap-3 text-xs text-[var(--color-stone-500)] uppercase tracking-[0.1em]">
+          <span>{post.data.category}</span>
+          <span>•</span>
+          <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span>•</span>
+          <span>{post.data.readingTime}</span>
+        </div>
+        <h1 class="display-2">{post.data.title}</h1>
+        <p class="lead text-[var(--color-stone-500)]">{post.data.summary}</p>
+      </Reveal>
+
+      <Reveal delay={1} class="mb-12 overflow-hidden rounded-lg">
+        <img
+          src={post.data.heroImage}
+          alt={post.data.heroAlt}
+          class="w-full h-auto"
+        />
+      </Reveal>
+
+      <Reveal delay={2} class="max-w-3xl mx-auto prose prose-lg">
+        <Content />
+      </Reveal>
+
+      <Reveal delay={3} class="mt-16 pt-8 border-t border-[var(--color-stone-300)] max-w-3xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+          <div>
+            <p class="text-xs uppercase tracking-[0.1em] text-[var(--color-stone-500)] font-medium mb-2">
+              Written by
+            </p>
+            <p class="font-serif text-lg leading-tight">{post.data.author}</p>
+          </div>
+          <a href="/contact/" class="btn btn--ghost self-start sm:self-auto">
+            Get in touch
+            <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </Reveal>
+    </Container>
+  </article>
+</Base>

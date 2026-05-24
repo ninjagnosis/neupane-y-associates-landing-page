@@ -1,0 +1,199 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+import { site } from '@data/site';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://neupaneassociates.com.np/contact/' },
+  ],
+};
+---
+
+<Base title="Contact us" jsonLd={jsonLd}>
+  <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
+    <Container size="lg">
+      <Reveal class="max-w-3xl">
+        <h1 class="display-1">
+          Let's start a
+          <br />
+          <span class="accent-italic">conversation</span>
+        </h1>
+      </Reveal>
+      <Reveal delay={1} class="mt-8 max-w-2xl">
+        <p class="lead text-[var(--color-stone-500)]">
+          Tell us about your business, your questions, or what keeps you up at night. We'll respond promptly.
+        </p>
+      </Reveal>
+    </Container>
+  </section>
+
+  <section class="section grid lg:grid-cols-3 gap-12 lg:gap-16 items-start">
+    <div class="lg:col-span-2">
+      <Container size="lg" class="lg:pl-0">
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          class="space-y-6"
+        >
+          <input type="hidden" name="access_key" value={site.contactFormKey} />
+          <input type="hidden" name="from_name" value="Neupane Y. & Associates Website" />
+          <input type="hidden" name="redirect" value="https://neupaneassociates.com.np/contact/thank-you/" />
+
+          <div>
+            <label for="name" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+              Full name
+            </label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              required
+              class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="email" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+                Email address
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition"
+                placeholder="you@example.com"
+              />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+                Phone number
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition"
+                placeholder="+977 9XX XXXXXXX"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="company" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+              Company name
+            </label>
+            <input
+              id="company"
+              type="text"
+              name="company"
+              class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition"
+              placeholder="Your company"
+            />
+          </div>
+
+          <div>
+            <label for="service" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+              Service interest
+            </label>
+            <select
+              id="service"
+              name="service"
+              class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition"
+            >
+              <option value="">Select a service...</option>
+              <option value="Statutory Audit">Statutory Audit</option>
+              <option value="Internal Audit">Internal Audit</option>
+              <option value="Tax Advisory">Tax Advisory</option>
+              <option value="Business Advisory">Business Advisory</option>
+              <option value="Company Registration">Company Registration</option>
+              <option value="Bookkeeping">Bookkeeping & Accounting</option>
+              <option value="Payroll">Payroll</option>
+              <option value="General Inquiry">General Inquiry</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-[var(--color-ink)] mb-2">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              class="w-full px-4 py-3 border border-[var(--color-stone-300)] rounded-lg focus:ring-2 focus:ring-[var(--color-gold)] focus:border-transparent outline-none transition resize-none"
+              placeholder="Tell us about your situation..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="btn w-full md:w-auto"
+          >
+            Send message
+            <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+          </button>
+        </form>
+      </Container>
+    </div>
+
+    <div class="lg:sticky lg:top-24">
+      <Container size="sm" class="lg:pl-0">
+        <div class="space-y-8">
+          <div>
+            <h3 class="font-serif text-xl mb-4 leading-tight" style="font-variation-settings: 'opsz' 48;">
+              Get in touch
+            </h3>
+            <div class="space-y-4 text-sm">
+              <div>
+                <p class="text-[var(--color-stone-500)] text-xs uppercase tracking-[0.1em] font-medium mb-2">Email</p>
+                <a href={`mailto:${site.email}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold)] transition-colors break-all">
+                  {site.email}
+                </a>
+              </div>
+              <div>
+                <p class="text-[var(--color-stone-500)] text-xs uppercase tracking-[0.1em] font-medium mb-2">Phone</p>
+                <a href={`tel:${site.phoneRaw}`} class="text-[var(--color-ink)] hover:text-[var(--color-gold)] transition-colors">
+                  {site.phone}
+                </a>
+              </div>
+              <div>
+                <p class="text-[var(--color-stone-500)] text-xs uppercase tracking-[0.1em] font-medium mb-2">Address</p>
+                <address class="not-italic text-[var(--color-ink)] leading-relaxed">
+                  {site.address.line1}<br />
+                  {site.address.line2}<br />
+                  {site.address.region}, {site.address.country}
+                </address>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-[var(--color-stone-300)] pt-6">
+            <p class="text-xs text-[var(--color-stone-500)] mb-4">Response time: 24 business hours</p>
+            <div class="flex gap-2">
+              <a
+                href={site.social.facebook}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Facebook"
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-[var(--color-stone-300)] hover:bg-[var(--color-ink)] hover:text-[var(--color-bone)] hover:border-[var(--color-ink)] transition-colors"
+              >
+                <Icon name="lucide:facebook" class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
+  </section>
+</Base>

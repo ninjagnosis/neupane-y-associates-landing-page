@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /.astro/
+
+Sitemap: https://neupaneassociates.com.np/sitemap-index.xml

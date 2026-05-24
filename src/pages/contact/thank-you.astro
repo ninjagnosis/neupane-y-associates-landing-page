@@ -1,0 +1,29 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Base title="Thank you" noindex={true}>
+  <section class="h-[70vh] flex items-center justify-center py-24">
+    <Container size="md">
+      <Reveal class="text-center">
+        <div class="mb-8 flex justify-center">
+          <Icon
+            name="lucide:check-circle-2"
+            class="w-16 h-16 text-[var(--color-gold)]"
+          />
+        </div>
+        <h1 class="display-2 mb-6">Message received</h1>
+        <p class="lead text-[var(--color-stone-500)] mb-8 max-w-2xl mx-auto">
+          Thank you for reaching out. We've received your message and will respond within 24 business hours.
+        </p>
+        <a href="/" class="btn">
+          Back to home
+          <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+        </a>
+      </Reveal>
+    </Container>
+  </section>
+</Base>

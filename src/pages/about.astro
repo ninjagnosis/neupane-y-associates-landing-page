@@ -1,0 +1,111 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import Eyebrow from '@components/ui/Eyebrow.astro';
+import SectionHeader from '@components/ui/SectionHeader.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://neupaneassociates.com.np' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://neupaneassociates.com.np/about/' },
+  ],
+};
+---
+
+<Base title="About us" jsonLd={jsonLd}>
+  <section class="pt-32 pb-20 lg:pt-48 lg:pb-32">
+    <Container size="lg">
+      <Reveal class="max-w-3xl">
+        <h1 class="display-1">
+          We believe great accounting
+          <br />
+          <span class="accent-italic">starts with listening.</span>
+        </h1>
+      </Reveal>
+      <Reveal delay={1} class="mt-8 max-w-2xl">
+        <p class="lead text-[var(--color-stone-500)]">
+          Founded in 2019, Neupane Y. & Associates is a boutique chartered accountancy firm in
+          Bhaktapur. We serve ambitious Nepali businesses with expert audit, tax, and advisory
+          services — delivered with precision and genuine partnership.
+        </p>
+      </Reveal>
+    </Container>
+  </section>
+
+  <section class="section bg-[var(--color-ink-deep)] text-[var(--color-bone)]">
+    <Container size="lg">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <Reveal class="flex flex-col gap-8">
+          <div>
+            <Eyebrow variant="on-dark">Our story</Eyebrow>
+            <h2 class="display-2 mt-6 text-[var(--color-bone)]">
+              Built on
+              <br />
+              <span class="accent-italic accent-italic--on-dark">precision and partnership</span>
+            </h2>
+          </div>
+          <div class="space-y-5 text-[var(--color-bone)]/80 leading-relaxed">
+            <p>
+              Yogesh Neupane founded this firm with a simple conviction: accountants should be
+              trusted advisors, not just compliance machines. Most businesses dread audit season.
+              We wanted to change that.
+            </p>
+            <p>
+              Over the past five years, we've built a reputation for rigorous financial audits,
+              strategic tax planning, and advisory that actually moves the needle. Our clients
+              aren't just compliant — they're confident.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delay={2} class="hidden lg:block aspect-square rounded-lg bg-gradient-to-br from-[var(--color-gold)]/10 to-[var(--color-ink)] border border-[var(--color-gold)]/20 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800&h=800"
+            alt="Firm office"
+            class="w-full h-full object-cover"
+          />
+        </Reveal>
+      </div>
+    </Container>
+  </section>
+
+  <section class="section">
+    <Container size="lg">
+      <SectionHeader eyebrow="Values" align="center" class="mb-16 lg:mb-24">
+        <h2 class="display-2">What we stand for</h2>
+      </SectionHeader>
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <Reveal class="flex flex-col gap-4">
+          <Icon name="lucide:shield" class="w-8 h-8 text-[var(--color-gold)]" />
+          <h3 class="font-serif text-2xl leading-tight" style="font-variation-settings: 'opsz' 48;">
+            Integrity
+          </h3>
+          <p class="text-[var(--color-stone-500)]">
+            We believe in speaking truth even when it's uncomfortable. Your numbers deserve honesty.
+          </p>
+        </Reveal>
+        <Reveal delay={1} class="flex flex-col gap-4">
+          <Icon name="lucide:lightbulb" class="w-8 h-8 text-[var(--color-gold)]" />
+          <h3 class="font-serif text-2xl leading-tight" style="font-variation-settings: 'opsz' 48;">
+            Excellence
+          </h3>
+          <p class="text-[var(--color-stone-500)]">
+            Precision in work. Clarity in communication. Timeliness in delivery.
+          </p>
+        </Reveal>
+        <Reveal delay={2} class="flex flex-col gap-4">
+          <Icon name="lucide:handshake" class="w-8 h-8 text-[var(--color-gold)]" />
+          <h3 class="font-serif text-2xl leading-tight" style="font-variation-settings: 'opsz' 48;">
+            Partnership
+          </h3>
+          <p class="text-[var(--color-stone-500)]">
+            Your success is our success. We're invested in outcomes, not billable hours.
+          </p>
+        </Reveal>
+      </div>
+    </Container>
+  </section>
+</Base>

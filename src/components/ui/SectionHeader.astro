@@ -1,0 +1,25 @@
+---
+interface Props {
+  eyebrow: string;
+  align?: 'left' | 'center';
+  variant?: 'default' | 'on-dark';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  align = 'left',
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'items-center text-center' : 'items-start';
+const eyebrowVariantClass = variant === 'on-dark' ? 'eyebrow--on-dark' : '';
+---
+
+<div class={`flex flex-col gap-5 ${alignClass} ${className}`}>
+  <span class={`eyebrow ${eyebrowVariantClass}`}>{eyebrow}</span>
+  <div class:list={['flex flex-col gap-5', align === 'center' && 'max-w-3xl mx-auto']}>
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,102 @@
+---
+import Base from '@layouts/Base.astro';
+import Container from '@components/ui/Container.astro';
+import Reveal from '@components/ui/Reveal.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await service.render();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.data.title,
+  description: service.data.summary,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Neupane Y. & Associates',
+    url: 'https://neupaneassociates.com.np',
+  },
+};
+---
+
+<Base title={service.data.title} description={service.data.summary} jsonLd={jsonLd}>
+  <section class="pt-32 pb-20 lg:pt-40 lg:pb-24">
+    <Container size="lg">
+      <Reveal class="max-w-3xl">
+        <h1 class="display-1">{service.data.title}</h1>
+      </Reveal>
+      <Reveal delay={1} class="mt-8 max-w-2xl">
+        <p class="lead text-[var(--color-stone-500)]">{service.data.summary}</p>
+      </Reveal>
+    </Container>
+  </section>
+
+  <section class="grid lg:grid-cols-3 gap-12 lg:gap-16 items-start pb-24 lg:pb-32">
+    <div class="lg:col-span-2">
+      <Container size="lg">
+        <article class="prose prose-sm max-w-none">
+          <Content />
+        </article>
+      </Container>
+    </div>
+
+    <div class="lg:sticky lg:top-24">
+      <Container size="sm" class="lg:pl-0">
+        <div class="bg-[var(--color-stone-100)] border border-[var(--color-stone-200)] rounded-lg p-8 space-y-8">
+          {
+            service.data.deliverables && (
+              <div>
+                <h3 class="font-serif text-xl mb-4 leading-tight" style="font-variation-settings: 'opsz' 48;">
+                  What's included
+                </h3>
+                <ul class="space-y-3">
+                  {service.data.deliverables.map((item) => (
+                    <li class="flex gap-3 text-sm text-[var(--color-stone-600)]">
+                      <Icon name="lucide:check" class="w-5 h-5 text-[var(--color-gold)] flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            service.data.whoFor && (
+              <div>
+                <h3 class="font-serif text-xl mb-4 leading-tight" style="font-variation-settings: 'opsz' 48;">
+                  Perfect for
+                </h3>
+                <ul class="space-y-2 text-sm text-[var(--color-stone-600)]">
+                  {service.data.whoFor.map((item) => (
+                    <li class="flex gap-2">
+                      <span class="text-[var(--color-gold)] font-bold">→</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          <div class="pt-4 border-t border-[var(--color-stone-200)]">
+            <a href="/contact/" class="btn w-full justify-center">
+              Discuss this service
+              <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </Container>
+    </div>
+  </section>
+</Base>
